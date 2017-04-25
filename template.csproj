@@ -66,6 +66,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="exercise8.cs" />
+    <Compile Include="exercise7.cs" />
+    <Compile Include="exercise6.cs" />
+    <Compile Include="exercise5.cs" />
+    <Compile Include="exercise4.cs" />
+    <Compile Include="exercise3.cs" />
+    <Compile Include="exercise2.cs" />
+    <Compile Include="exercise1.cs" />
     <Compile Include="game.cs" />
     <Compile Include="surface.cs" />
     <Compile Include="template.cs" />

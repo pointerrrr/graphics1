@@ -13,6 +13,42 @@ namespace Template
 		static int screenID;
 		static Game game;
 		static bool terminated = false;
+
+		public OpenTKApp(int exercise = 0)
+		{
+			switch (exercise)
+			{
+				
+				case 1:
+					game = new Exercise1();
+					break;
+				case 2:
+					game = new Exercise2();
+					break;
+				case 3:
+					game = new Exercise3();
+					break;
+				case 4:
+					game = new Exercise4();
+					break;
+				case 5:
+					game = new Exercise5();
+					break;
+				case 6:
+					game = new Exercise6();
+					break;
+				case 7:
+					game = new Exercise7();
+					break;
+				case 8:
+					game = new Exercise8();
+					break;
+				default:
+					game = new Game();
+					break;
+			}
+		}
+
 		protected override void OnLoad( EventArgs e )
 		{
 			// called upon app init
@@ -20,8 +56,9 @@ namespace Template
 			GL.Enable( EnableCap.Texture2D );
 			GL.Disable( EnableCap.DepthTest );
 			GL.Hint( HintTarget.PerspectiveCorrectionHint, HintMode.Nicest );
-			ClientSize = new Size( 640, 400 );
-			game = new Game();
+			ClientSize = new Size( 640, 400);
+			if(game==null)
+				game = new Game();
 			game.screen = new Surface( Width, Height );
 			Sprite.target = game.screen;
 			screenID = game.screen.GenTexture();
@@ -82,9 +119,18 @@ namespace Template
 		}
 		public static void Main( string[] args ) 
 		{
-			// entry point
-			Console.Read();
-			using (OpenTKApp app = new OpenTKApp()) { app.Run( 30.0, 0.0 ); }
+			// entry point			
+			Console.Write("Enter a number (1-8) to open up the corresponding exercise: ");
+			int num;
+			if(int.TryParse(Console.ReadLine(), out num))
+			{
+				if (num < 9 && num > 0)
+					using (OpenTKApp app = new OpenTKApp(num)) { app.Run(30.0, 0.0); }
+			}
+			else
+			{
+				Console.WriteLine("Please enter a number between 1 and 8.");
+			}			
 		}
 	}
 }
