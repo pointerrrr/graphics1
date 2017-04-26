@@ -5,6 +5,7 @@ using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
+using System.Windows.Forms;
 
 namespace Template
 {
@@ -73,6 +74,7 @@ namespace Template
 		protected override void OnResize( EventArgs e )
 		{
 			// called upon window resize
+			game.screen = new Surface(Width, Height);
 			GL.Viewport(0, 0, Width, Height);
 			GL.MatrixMode( MatrixMode.Projection );
 			GL.LoadIdentity();
@@ -125,7 +127,7 @@ namespace Template
 			if(int.TryParse(Console.ReadLine(), out num))
 			{
 				if (num < 9 && num > 0)
-					using (OpenTKApp app = new OpenTKApp(num)) { app.Run(30.0, 0.0); }
+					using (OpenTKApp app = new OpenTKApp(num)) { app.Run(30.0, 30.0); }
 			}
 			else
 			{
