@@ -1,5 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Drawing;
+using OpenTK;
+using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL;
+using OpenTK.Input;
 
 namespace Template {
 
@@ -7,6 +12,9 @@ namespace Template {
 	{
 		// member variables
 		public Surface screen;
+
+		internal  KeyboardState prevKeyState, currentKeyState;
+		
 
 		// initialize
 		public virtual void Init()
@@ -21,9 +29,19 @@ namespace Template {
 			screen.Line(2, 20, 160, 20, 0xff0000);
 		}
 
+		public virtual void Control(KeyboardState keys)
+		{
+			prevKeyState = keys;
+		}
+
 		public static int CreateRGB(int red, int green, int blue)
 		{
 			return ( red << 16 ) + ( green << 8 ) + blue;
+		}
+
+		public bool NewKeyPress(Key key)
+		{
+			return ( currentKeyState[key] && ( currentKeyState[key] != prevKeyState[key] ) );
 		}
 	}
 

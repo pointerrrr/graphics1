@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Template
 {
@@ -7,21 +8,103 @@ namespace Template
 	class Exercise5 : Game
 	{
 		// member variables
-		
-		// initialize
+		float x1 = -1.0f, y1 = 1.0f;
+		float x2 = 1.0f, y2 = 1.0f;
+		float x3 = 1.0f, y3 = -1.0f;
+		float x4 = -1.0f, y4 = -1.0f;
+		float scale = 8.0f;//width of screen
+		float origX = 0.0f, origY = 0.0f;
 
+
+		// initialize
 		public override void Init()
 		{
 		}
-
+		float a = (float) Math.PI / 4;
 		// tick: renders one frame
 		public override void Tick()
 		{
 			screen.Clear(0);
 			screen.Print("Exercise 5", 2, 2, 0xffffff);
-			screen.Line(2, 20, 160, 20, 0xff0000);
-			for (int i = 0; i < 256; i++)
-				screen.Line(screen.width / 2 + 127 - i, screen.height / 2 - 127, screen.width / 2 + 127 - i, screen.height / 2 + 127, CreateRGB(0, 0, 255 - i));
+			a += (float) Math.PI / 90;
+			screen.Line(TX(rotateX(x1, y1)), TY(rotateY(x1, y1)), TX(rotateX(x2, y2)), TY(rotateY(x2, y2)), 0xff0000);
+			screen.Line(TX(rotateX(x2, y2)), TY(rotateY(x2, y2)), TX(rotateX(x3, y3)), TY(rotateY(x3, y3)), 0xff0000);
+			screen.Line(TX(rotateX(x3, y3)), TY(rotateY(x3, y3)), TX(rotateX(x4, y4)), TY(rotateY(x4, y4)), 0xff0000);
+			screen.Line(TX(rotateX(x4, y4)), TY(rotateY(x4, y4)), TX(rotateX(x1, y1)), TY(rotateY(x1, y1)), 0xff0000);
+		}
+
+		public override void Control(OpenTK.Input.KeyboardState keys)
+		{
+			currentKeyState = keys;
+			if (NewKeyPress(OpenTK.Input.Key.Up))
+			{
+				Move(0, 1f);
+			}
+			if (NewKeyPress(OpenTK.Input.Key.Down))
+			{
+				Move(0, -1f);
+			}
+			if (NewKeyPress(OpenTK.Input.Key.Left))
+			{
+				Move(-1f, 0);
+			}
+			if (NewKeyPress(OpenTK.Input.Key.Right))
+			{
+				Move(1f, 0);
+			}
+			if (NewKeyPress(OpenTK.Input.Key.Z))
+			{
+				Zoom(false);
+			}
+			if (NewKeyPress(OpenTK.Input.Key.X))
+			{
+				Zoom(true);
+			}
+			base.Control(keys);
+		}
+
+		private void Move(float x, float y)
+		{
+			origX += x;
+			origY += y;
+		}
+
+		private void Zoom(bool zoomIn)
+		{
+			if (zoomIn)
+				scale *= 2f;
+			else
+				scale /= 2f;
+		}
+
+
+		public float rotateX(float x, float y)
+		{
+			float rx = (float) ( x * Math.Cos(a) - y * Math.Sin(a) );
+			return rx;
+		}
+
+		public float rotateY(float x, float y)
+		{
+			float ry = (float) ( x * Math.Sin(a) + y * Math.Cos(a) );
+			return ry;
+		}
+
+		public int TX(float x)
+		{
+			x += origX;
+			x += scale / 2;
+			x *= screen.width / scale;
+			return (int) x;
+		}
+
+		public int TY(float y)
+		{
+			y += origY;
+			y += scale / 2;
+			y *= screen.width / scale;
+			y = screen.height + ( screen.width - screen.height ) / 2 - y;
+			return (int) y;
 		}
 	}
 
