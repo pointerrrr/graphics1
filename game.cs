@@ -13,7 +13,7 @@ namespace Template {
 		// member variables
 		public Surface screen;
 
-		internal  KeyboardState prevKeyState, currentKeyState;
+		protected  KeyboardState prevKeyState, currentKeyState;
 		
 
 		// initialize
