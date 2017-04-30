@@ -90,23 +90,21 @@ namespace Template
 			float size = 0.01f;
 			float scale = 0.5f;
 			GL.Begin(PrimitiveType.Quads);
-			for (float i = 1; i < 126; i++)
-				for (float j = 1; j < 126; j++)
+			for (float i = 0; i < 127; i++)
+				for (float j = 0; j < 127; j++)
 				{
 					GL.Color3(h[(int) i, (int) j], 0.0f, 1.0f - h[(int) i, (int) j]);
 					
 					float f = size * 2;
 					float di = f * ( i - 63 );
 					float dj = f * ( j - 63 );
-					GL.Color3(1.0f, 0.0f, 0.0f);
-					GL.Vertex3(-size + di, size + dj, ( -h[(int) i-1, (int) j-1] - depth ) * scale);
-					
-					GL.Vertex3(size + di, size + dj, ( -h[(int) i, (int) j-1] - depth ) * scale);
-					GL.Color3(0.0f, 0.0f, 1.0f);
-					GL.Vertex3(size + di, -size + dj, ( -h[(int) i-1, (int) j] - depth ) * scale);
-					
 					GL.Vertex3(-size + di, -size + dj, ( -h[(int) i, (int) j] - depth ) * scale);
-					GL.Color3(1.0f, 1.0f, 1.0f);
+					GL.Vertex3(size + di, -size + dj, ( -h[(int) i +1, (int) j] - depth ) * scale);
+					GL.Vertex3(size + di, size + dj, ( -h[(int) i+1, (int) j +1] - depth ) * scale);
+					GL.Vertex3(-size + di, size + dj, ( -h[(int) i , (int) j + 1] - depth ) * scale);
+					
+									
+					
 
 
 
