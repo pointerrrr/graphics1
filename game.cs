@@ -24,6 +24,11 @@ namespace Template {
 			screen.Line(2, 20, 160, 20, 0xff0000);
 		}
 
+		public virtual void RenderGL()
+		{
+
+		}
+
 		public virtual void Control(KeyboardState keys)
 		{
 			prevKeyState = keys;

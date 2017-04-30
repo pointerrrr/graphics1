@@ -53,9 +53,6 @@ namespace Template
 		protected override void OnLoad( EventArgs e )
 		{
 			// called upon app init
-			GL.ClearColor( Color.Black );
-			GL.Enable( EnableCap.Texture2D );
-			GL.Disable( EnableCap.DepthTest );
 			GL.Hint( HintTarget.PerspectiveCorrectionHint, HintMode.Nicest );
 			ClientSize = new Size( 640, 400);
 			if(game==null)
@@ -91,32 +88,41 @@ namespace Template
 		{
 			// called once per frame; render
 			game.Tick();
-			if (terminated) 
+			if (terminated)
 			{
 				Exit();
 				return;
 			}
+			GL.ClearColor(Color.Black);
+			GL.Enable(EnableCap.Texture2D);
+			GL.Disable(EnableCap.DepthTest);
+			GL.Color3(1.0f, 1.0f, 1.0f);
 			// convert Game.screen to OpenGL texture
-			GL.BindTexture( TextureTarget.Texture2D, screenID );
-			GL.TexImage2D( TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, 
-						   game.screen.width, game.screen.height, 0, 
-						   OpenTK.Graphics.OpenGL.PixelFormat.Bgra, 
-						   PixelType.UnsignedByte, game.screen.pixels 
+			GL.BindTexture(TextureTarget.Texture2D, screenID);
+			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba,
+						   game.screen.width, game.screen.height, 0,
+						   OpenTK.Graphics.OpenGL.PixelFormat.Bgra,
+						   PixelType.UnsignedByte, game.screen.pixels
 						 );
 			// clear window contents
-			GL.Clear( ClearBufferMask.ColorBufferBit );
+			GL.Clear(ClearBufferMask.ColorBufferBit);
 			// setup camera
-			GL.MatrixMode( MatrixMode.Modelview );
+			GL.MatrixMode(MatrixMode.Modelview);
 			GL.LoadIdentity();
-			GL.MatrixMode( MatrixMode.Projection );
+			GL.MatrixMode(MatrixMode.Projection);
 			GL.LoadIdentity();
 			// draw screen filling quad
-			GL.Begin( PrimitiveType.Quads );
-			GL.TexCoord2( 0.0f, 1.0f ); GL.Vertex2( -1.0f, -1.0f );
-			GL.TexCoord2( 1.0f, 1.0f ); GL.Vertex2(  1.0f, -1.0f );
-			GL.TexCoord2( 1.0f, 0.0f ); GL.Vertex2(  1.0f,  1.0f );
-			GL.TexCoord2( 0.0f, 0.0f ); GL.Vertex2( -1.0f,  1.0f );
+			GL.Begin(PrimitiveType.Quads);
+			GL.TexCoord2(0.0f, 1.0f); GL.Vertex2(-1.0f, -1.0f);
+			GL.TexCoord2(1.0f, 1.0f); GL.Vertex2(1.0f, -1.0f);
+			GL.TexCoord2(1.0f, 0.0f); GL.Vertex2(1.0f, 1.0f);
+			GL.TexCoord2(0.0f, 0.0f); GL.Vertex2(-1.0f, 1.0f);
 			GL.End();
+			// prepare for generic OpenGL rendering
+			GL.Enable(EnableCap.DepthTest);
+			GL.Disable(EnableCap.Texture2D);
+			GL.Clear(ClearBufferMask.DepthBufferBit);
+			game.RenderGL();
 			// tell OpenTK we're done rendering
 			SwapBuffers();
 		}
