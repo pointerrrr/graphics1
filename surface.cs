@@ -224,7 +224,14 @@ namespace Template
 				int src = f * 12;
 				for( int v = 0; v < font.height; v++, src += font.width, dest += width ) for( int u = 0; u < 12; u++ )
 				{
-					if ((font.pixels[src + u] & 0xffffff) != 0) pixels[dest + u] = c;
+						if (( font.pixels[src + u] & 0xffffff ) != 0)
+						{
+							int dx, dy;
+							dy = (dest + u) / width;
+							dx = (dest + u) % width;
+							if(Math.Abs(dy - y) <= font.height && x < dx && dx < width && dy < height)
+								pixels[dest + u] = c;
+						}
 				}
 			}
 		}
