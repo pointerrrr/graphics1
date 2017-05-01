@@ -66,13 +66,18 @@ namespace Template
 			minX = (int)Math.Floor(minX);
 			while (minX <= maxX)
 			{
-				screen.Print(minX.ToString(), TX(minX), TY(0), 0xffffff);
+				screen.Line(TX(minX), TY(0)-8, TX(minX), TY(0)+8, 0xffffff);
+				screen.Print(minX.ToString(), TX(minX) - minX.ToString().Length * 6, TY(0) + 4, 0xffffff);
 				minX++;
 			}
 			minY = (int) Math.Floor(minY);
 			while (minY <= maxY)
 			{
-				screen.Print(minY.ToString(), TX(0), TY(minY), 0xffffff);
+				if (Math.Abs(minY - 0.1) > 0.125)
+				{
+					screen.Line(TX(0)-8, TY(minY), TX(0)+8, TY(minY), 0xffffff);
+					screen.Print(minY.ToString(), TX(0) + 4, TY(minY) - 8, 0xffffff);
+				}
 				minY++;
 			}
 		}
