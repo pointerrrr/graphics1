@@ -122,7 +122,7 @@ namespace Template
 			screen.Clear(0);
 			screen.Print("Exercise 8", 2, 2, 0xffffff);
 			screen.Print("A: " + a + " B: " + b + " C: " + c, 2, 30, 0xfffff);
-			//d += (float) Math.PI / 90;
+			d += (float) Math.PI / 90;
 			/*screen.Line(TX(rotateX(x1, y1)), TY(rotateY(x1, y1)), TX(rotateX(x2, y2)), TY(rotateY(x2, y2)), 0xff0000);
 			screen.Line(TX(rotateX(x2, y2)), TY(rotateY(x2, y2)), TX(rotateX(x3, y3)), TY(rotateY(x3, y3)), 0xff0000);
 			screen.Line(TX(rotateX(x3, y3)), TY(rotateY(x3, y3)), TX(rotateX(x4, y4)), TY(rotateY(x4, y4)), 0xff0000);
