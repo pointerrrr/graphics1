@@ -11,6 +11,7 @@ namespace Template {
 		public Surface screen;
 
 		protected  KeyboardState prevKeyState, currentKeyState;
+		public int programID;
 		
 
 		// initialize
