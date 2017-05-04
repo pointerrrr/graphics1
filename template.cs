@@ -44,6 +44,12 @@ namespace Template
 				case 8:
 					game = new Exercise8();
 					break;
+				case 9:
+					game = new Exercise9();
+					break;
+				case 10:
+					game = new Exercise10();
+					break;
 				default:
 					game = new Game();
 					break;
@@ -133,12 +139,12 @@ namespace Template
 			int num;
 			if(int.TryParse(Console.ReadLine(), out num))
 			{
-				if (num < 9 && num > 0)
+				if (num < 11 && num > 0)
 					using (OpenTKApp app = new OpenTKApp(num)) { app.Run(30.0, 30.0); }
 			}
 			else
 			{
-				Console.WriteLine("Please enter a number between 1 and 8.");
+				Console.WriteLine("Please enter a number between 1 and 10.");
 			}			
 		}
 	}

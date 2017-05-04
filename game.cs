@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using OpenTK.Input;
+using OpenTK.Graphics.OpenGL;
 
 namespace Template {
 
@@ -43,6 +45,17 @@ namespace Template {
 		{
 			return ( currentKeyState[key] && ( currentKeyState[key] != prevKeyState[key] ) );
 		}
+
+		protected void LoadShader(String name, ShaderType type, int program, out int ID)
+		{
+			ID = GL.CreateShader(type);
+			using (StreamReader sr = new StreamReader(name))
+				GL.ShaderSource(ID, sr.ReadToEnd());
+			GL.CompileShader(ID);
+			GL.AttachShader(program, ID);
+			Console.WriteLine(GL.GetShaderInfoLog(ID));
+		}
+
 	}
 
 } // namespace Template
