@@ -137,7 +137,7 @@ namespace Template
 		public static void Main( string[] args ) 
 		{
 			// entry point			
-			Console.Write("Enter a number (1-8) to open up the corresponding exercise: ");
+			Console.Write("Enter a number (1-10) to open up the corresponding exercise: ");
 			int num;
 			if(int.TryParse(Console.ReadLine(), out num))
 			{
