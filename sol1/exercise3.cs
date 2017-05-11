@@ -1,7 +1,4 @@
 ﻿using System;
-using System.IO;
-using OpenTK;
-using System.Windows.Forms;
 
 namespace Template
 {
@@ -26,25 +23,29 @@ namespace Template
 			screen.Clear(0);
 			screen.Print("Exercise 3", 2, 2, 0xffffff);
 			a += (float)Math.PI/90;
+
+			// draw the rotaded square
 			screen.Line(TX(rotateX(x1, y1)), TY(rotateY(x1, y1)), TX(rotateX(x2, y2)), TY(rotateY(x2, y2)), 0xff0000);
 			screen.Line(TX(rotateX(x2, y2)), TY(rotateY(x2, y2)), TX(rotateX(x3, y3)), TY(rotateY(x3, y3)), 0xff0000);
 			screen.Line(TX(rotateX(x3, y3)), TY(rotateY(x3, y3)), TX(rotateX(x4, y4)), TY(rotateY(x4, y4)), 0xff0000);
 			screen.Line(TX(rotateX(x4, y4)), TY(rotateY(x4, y4)), TX(rotateX(x1, y1)), TY(rotateY(x1, y1)), 0xff0000);	
 		}
 
-
+		//returns the rotated x value of the given point a degrees
 		public float rotateX(float x, float y)
 		{
 			float rx = (float) (x*Math.Cos(a) - y*Math.Sin(a));
 			return rx;
 		}
 
+		//returns the rotated y value of the given point a degrees
 		public float rotateY(float x, float y)
 		{
 			float ry = (float) ( x * Math.Sin(a) + y * Math.Cos(a) );	
 			return ry;
 		}
 
+		//convert given x value to screen coordinates
 		public int TX(float x)
 		{
 			x += 2;
@@ -52,6 +53,7 @@ namespace Template
 			return (int)x;
 		}
 
+		//convert given y value to screen coordinates
 		public int TY(float y)
 		{
 			y += 2;

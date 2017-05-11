@@ -51,15 +51,13 @@
     <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OpenTK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <HintPath>packages\OpenTK.2.0.0\lib\net20\OpenTK.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="OpenTK">
+      <HintPath>OpenTK\Release\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -71,11 +69,6 @@
     <Compile Include="exercise8.cs" />
     <Compile Include="exercise7.cs" />
     <Compile Include="exercise6.cs" />
-    <Compile Include="exercise5.cs" />
-    <Compile Include="exercise4.cs" />
-    <Compile Include="exercise3.cs" />
-    <Compile Include="exercise2.cs" />
-    <Compile Include="exercise1.cs" />
     <Compile Include="exercise9.cs" />
     <Compile Include="game.cs" />
     <Compile Include="surface.cs" />

@@ -230,7 +230,8 @@ namespace Template
 							int dx, dy;
 							dy = (dest + u) / width;
 							dx = (dest + u) % width;
-							if(dy == y + v && dx == x + 12 * i + u && dest + u < height * width)
+							// making sure the pixel does not fall off the screen or goes to the next line
+							if (dy == y + v && dx == x + 12 * i + u && dest + u < height * width && dest + u > 0)
 								pixels[dest + u] = c;
 						}
 					}

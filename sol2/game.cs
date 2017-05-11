@@ -5,14 +5,13 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Template {
 
+	// base class for all exercises
 	class Game
 	{
 		// member variables
-		public Surface screen;
-
-		protected  KeyboardState prevKeyState, currentKeyState;
-		public int programID;
-		
+		protected KeyboardState prevKeyState, currentKeyState;
+		public Surface screen;		
+		public int programID;		
 
 		// initialize
 		public virtual void Init()
@@ -27,26 +26,32 @@ namespace Template {
 			screen.Line(2, 20, 160, 20, 0xff0000);
 		}
 
+		// method for rendering the GL
 		public virtual void RenderGL()
 		{
 
 		}
 
+		// method for handling inputs
 		public virtual void Control(KeyboardState keys)
 		{
 			prevKeyState = keys;
 		}
 
+		// create a color int from RGB
 		public static int CreateRGB(int red, int green, int blue)
 		{
 			return ( red << 16 ) + ( green << 8 ) + blue;
 		}
 
+		// check if a key was pressed this frame
 		public bool NewKeyPress(Key key)
 		{
 			return ( currentKeyState[key] && ( currentKeyState[key] != prevKeyState[key] ) );
 		}
 
+
+		// load a shader
 		protected void LoadShader(String name, ShaderType type, int program, out int ID)
 		{
 			ID = GL.CreateShader(type);
@@ -55,8 +60,6 @@ namespace Template {
 			GL.CompileShader(ID);
 			GL.AttachShader(program, ID);
 			Console.WriteLine(GL.GetShaderInfoLog(ID));
-		}
-
+		}
 	}
-
 } // namespace Template

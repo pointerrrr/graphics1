@@ -1,11 +1,7 @@
 ﻿using System;
-using System.IO;
 using System.Drawing;
 using OpenTK;
-using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
-using OpenTK.Input;
-using System.Windows.Forms;
 
 namespace Template
 {
@@ -17,6 +13,7 @@ namespace Template
 
 		public OpenTKApp(int exercise = 0)
 		{
+			// start the requested exercise
 			switch (exercise)
 			{
 				
@@ -34,21 +31,6 @@ namespace Template
 					break;
 				case 5:
 					game = new Exercise5();
-					break;
-				case 6:
-					game = new Exercise6();
-					break;
-				case 7:
-					game = new Exercise7();
-					break;
-				case 8:
-					game = new Exercise8();
-					break;
-				case 9:
-					game = new Exercise9();
-					break;
-				case 10:
-					game = new Exercise10();
 					break;
 				default:
 					game = new Game();
@@ -88,6 +70,7 @@ namespace Template
 			// called once per frame; app logic
 			var keyboard = OpenTK.Input.Keyboard.GetState();
 			if (keyboard[OpenTK.Input.Key.Escape]) this.Exit();
+			// calls the control method to check what inputs have been given
 			game.Control(keyboard);
 		}
 		protected override void OnRenderFrame( FrameEventArgs e )
@@ -118,35 +101,31 @@ namespace Template
 			GL.MatrixMode(MatrixMode.Projection);
 			GL.LoadIdentity();
 			// draw screen filling quad
-			GL.UseProgram(0);
 			GL.Begin(PrimitiveType.Quads);
 			GL.TexCoord2(0.0f, 1.0f); GL.Vertex2(-1.0f, -1.0f);
 			GL.TexCoord2(1.0f, 1.0f); GL.Vertex2(1.0f, -1.0f);
 			GL.TexCoord2(1.0f, 0.0f); GL.Vertex2(1.0f, 1.0f);
 			GL.TexCoord2(0.0f, 0.0f); GL.Vertex2(-1.0f, 1.0f);
 			GL.End();
-			GL.UseProgram(game.programID);
 			// prepare for generic OpenGL rendering
 			GL.Enable(EnableCap.DepthTest);
 			GL.Disable(EnableCap.Texture2D);
-			GL.Clear(ClearBufferMask.DepthBufferBit);
-			game.RenderGL();
-			// tell OpenTK we're done rendering
+			GL.Clear(ClearBufferMask.DepthBufferBit);			// tell OpenTK we're done rendering
 			SwapBuffers();
 		}
 		public static void Main( string[] args ) 
 		{
-			// entry point			
-			Console.Write("Enter a number (1-10) to open up the corresponding exercise: ");
+			// prompt the user for a number. The corresponding exercise will be opened	
+			Console.Write("Enter a number (1-5) to open up the corresponding exercise: ");
 			int num;
 			if(int.TryParse(Console.ReadLine(), out num))
 			{
-				if (num < 11 && num > 0)
+				if (num < 6 && num > 0)
 					using (OpenTKApp app = new OpenTKApp(num)) { app.Run(30.0, 30.0); }
 			}
 			else
 			{
-				Console.WriteLine("Please enter a number between 1 and 10.");
+				Console.WriteLine("Please enter a number between 1 and 5.");
 			}			
 		}
 	}
